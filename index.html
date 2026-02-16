@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YACC 2025 Conference Feedback Survey</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #2c5aa0;
+      --primary-light: #3b6dc2;
+      --primary-dark: #1e40af;
+      --secondary: #4CAF50;
+      --light: #f8fafc;
+      --dark: #1e293b;
+      --gray: #64748b;
+      --error: #ef4444;
+      --success: #10b981;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #f5f7fb 0%, #e0f2fe 100%);
+      color: var(--dark);
+      line-height: 1.6;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    .header {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      border-radius: 15px;
+      padding: 25px;
+      margin-bottom: 25px;
+      color: white;
+      text-align: center;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+
+    .logo-container {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 15px;
+    }
+
+    .logo {
+      height: 60px;
+      width: auto;
+    }
+
+    .title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      font-size: 1rem;
+      opacity: 0.95;
+      margin-bottom: 5px;
+    }
+
+    .theme-tag {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-weight: 600;
+      margin-top: 10px;
+      font-size: 0.9rem;
+    }
+
+    /* Progress */
+    .progress-section {
+      background: white;
+      border-radius: 12px;
+      padding: 15px;
+      margin-bottom: 25px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .progress-header h2 {
+      color: var(--primary);
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .progress-count {
+      background: var(--primary);
+      color: white;
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .progress-bar-container {
+      background: #e2e8f0;
+      height: 8px;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      border-radius: 4px;
+      transition: width 0.3s ease;
+    }
+
+    /* Committee Cards */
+    .committee-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .committee-card {
+      background: white;
+      border-radius: 12px;
+      padding: 15px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    .committee-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #e2e8f0;
+    }
+
+    .committee-icon {
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      width: 35px;
+      height: 35px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 0.9rem;
+    }
+
+    .committee-name {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--primary-dark);
+      flex: 1;
+    }
+
+    .rating-container {
+      display: flex;
+      justify-content: space-between;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+
+    .rating-btn {
+      flex: 1;
+      aspect-ratio: 1;
+      border: none;
+      background: #f1f5f9;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--gray);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .rating-btn:hover {
+      background: var(--primary-light);
+      color: white;
+    }
+
+    .rating-btn.selected {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+    }
+
+    .rating-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.7rem;
+      color: var(--gray);
+    }
+
+    /* Testimony */
+    .testimony-section {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 25px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 15px;
+    }
+
+    .section-icon {
+      background: linear-gradient(135deg, var(--secondary), #10b981);
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.2rem;
+    }
+
+    .section-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+    }
+
+    .testimony-textarea {
+      width: 100%;
+      min-height: 120px;
+      padding: 12px;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      resize: vertical;
+      background: var(--light);
+    }
+
+    .testimony-textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      background: white;
+    }
+
+    /* Info Cards */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin-bottom: 25px;
+    }
+
+    .info-card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    .info-card h3 {
+      color: var(--primary);
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .info-list {
+      list-style: none;
+    }
+
+    .info-list li {
+      padding: 8px 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.95rem;
+      color: var(--gray);
+    }
+
+    .info-list i {
+      color: var(--secondary);
+    }
+
+    .contact-info p {
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--gray);
+    }
+
+    /* Submit Button */
+    .submit-section {
+      text-align: center;
+      margin: 30px 0;
+    }
+
+    .submit-btn {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+      color: white;
+      border: none;
+      padding: 16px 35px;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 6px 12px rgba(44, 90, 160, 0.2);
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(44, 90, 160, 0.3);
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none !important;
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--dark);
+      color: white;
+      border-radius: 15px;
+      padding: 30px;
+      margin-top: 30px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      margin-bottom: 30px;
+    }
+
+    .footer-section h3 {
+      color: white;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid rgba(255,255,255,0.1);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .footer-section p {
+      opacity: 0.8;
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+    }
+
+    .copyright {
+      text-align: center;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      opacity: 0.7;
+      font-size: 0.9rem;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: linear-gradient(135deg, var(--success), var(--secondary));
+      color: white;
+      padding: 12px 18px;
+      border-radius: 8px;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transform: translateX(400px);
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 1000;
+      max-width: 350px;
+    }
+
+    .toast.show {
+      transform: translateX(0);
+      opacity: 1;
+    }
+
+    .toast.error {
+      background: linear-gradient(135deg, var(--error), #dc2626);
+    }
+
+    .spinner {
+      width: 18px;
+      height: 18px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 10px;
+      }
+      
+      .header {
+        padding: 20px 15px;
+      }
+      
+      .logo-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+      }
+      
+      .logo {
+        height: 50px;
+      }
+      
+      .title {
+        font-size: 1.4rem;
+      }
+      
+      .committee-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <div class="logo-container">
+        <img src="https://i.ibb.co/3m5w9nBF/yacc-logo-removebg-preview.png" alt="YACC Logo" class="logo">
+        <img src="https://i.ibb.co/397cCm70/OIP-1-removebg-preview.png" alt="COC Logo" class="logo">
+      </div>
+      <div class="header-content">
+        <h1 class="title">YACC 2025 Conference Feedback Survey</h1>
+        <p class="subtitle">The 52nd Youth Annual Conference for Christ with the theme "CONNECT"</p>
+        <p class="subtitle">Held at Anilao National High School, Iloilo from December 26-29, 2025</p>
+        <div class="theme-tag">
+          A gathering for youth to connect with Christ, each other, and their purpose.
+        </div>
+      </div>
+    </header>
+
+    <!-- Progress -->
+    <section class="progress-section">
+      <div class="progress-header">
+        <h2><i class="fas fa-chart-line"></i> Survey Progress</h2>
+        <div class="progress-count" id="progressCount">0/9</div>
+      </div>
+      <div class="progress-bar-container">
+        <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+      </div>
+    </section>
+
+    <!-- Committees -->
+    <section>
+      <div class="section-header" style="margin-bottom: 20px;">
+        <div class="section-icon">
+          <i class="fas fa-clipboard-check"></i>
+        </div>
+        <h2 class="section-title">Committee Ratings</h2>
+      </div>
+      <p style="color: var(--gray); margin-bottom: 20px; font-size: 1rem;">
+        Rate each committee from 1 (Poor) to 5 (Excellent)
+      </p>
+      
+      <div class="committee-grid" id="committeeGrid">
+        <!-- Generated dynamically -->
+      </div>
+    </section>
+
+    <!-- Testimony -->
+    <section class="testimony-section">
+      <div class="section-header">
+        <div class="section-icon">
+          <i class="fas fa-comment-alt"></i>
+        </div>
+        <h2 class="section-title">YACC 2025 Testimony & Suggestions</h2>
+      </div>
+      <p style="color: var(--gray); margin-bottom: 15px; font-size: 1rem;">
+        Share your testimony about YACC 2025
+      </p>
+      
+      <textarea 
+        class="testimony-textarea" 
+        id="testimony" 
+        placeholder="Please share your experience, suggestions, or testimony about YACC 2025..."
+      ></textarea>
+    </section>
+
+    <!-- Info Section -->
+    <div class="info-grid">
+      <div class="info-card">
+        <h3><i class="fas fa-shield-alt"></i> Survey Information</h3>
+        <ul class="info-list">
+          <li><i class="fas fa-check-circle"></i> Your privacy is respected and protected</li>
+          <li><i class="fas fa-database"></i> All responses are stored securely</li>
+          <li><i class="fas fa-chart-line"></i> Your feedback shapes future conferences</li>
+        </ul>
+      </div>
+      
+      <div class="info-card">
+        <h3><i class="fas fa-envelope"></i> Contact Information</h3>
+        <div class="contact-info">
+          <p><i class="fas fa-at"></i> yacc2025connect@gmail.com</p>
+          <p><i class="fas fa-link"></i> Responses are saved to Google Sheets</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="submit-section">
+      <button class="submit-btn" id="submitBtn">
+        <i class="fas fa-paper-plane"></i> <span id="submitBtnText">Submit Feedback</span>
+      </button>
+      <p style="margin-top: 15px; color: var(--gray); font-size: 0.9rem;">
+        Created by Tommy Paolma | CTO YACC
+      </p>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-grid">
+        <div class="footer-section">
+          <h3><i class="fas fa-cross"></i> About YACC 2025</h3>
+          <p>The 52nd Youth Annual Conference for Christ with the theme "CONNECT" held at Anilao National High School, Iloilo from December 26-29, 2025.</p>
+          <p>A gathering for youth to connect with Christ, each other, and their purpose.</p>
+        </div>
+        
+        <div class="footer-section">
+          <h3><i class="fas fa-clipboard-check"></i> Survey Information</h3>
+          <p><i class="fas fa-shield-alt"></i> Your privacy is respected and protected</p>
+          <p><i class="fas fa-bell"></i> Organizers receive notification of new responses</p>
+          <p><i class="fas fa-chart-line"></i> Your feedback shapes future conferences</p>
+        </div>
+        
+        <div class="footer-section">
+          <h3><i class="fas fa-envelope"></i> Contact Information</h3>
+          <p><i class="fas fa-at"></i> yacc2025connect@gmail.com</p>
+          <p><i class="fas fa-link"></i> Responses saved to Google Sheets</p>
+        </div>
+      </div>
+      
+      <div class="copyright">
+        <p>© 2025 52nd Youth Annual Conference for Christ (YACC). All rights reserved.</p>
+        <p>Created by Tommy Paolma | Chief Technology Officer | YACC</p>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast">
+    <i class="fas fa-check-circle"></i>
+    <span id="toastMessage">Thank you! Your feedback has been submitted.</span>
+  </div>
+
+  <script>
+    // FIXED FRONTEND CODE
+    let ratings = {};
+    let committees = [];
+    let isSubmitting = false;
+    
+    // Initialize app
+    function initApp() {
+      committees = [
+        { id: 'medical', name: 'Medical Committee' },
+        { id: 'technical', name: 'Technical and Sound Committee' },
+        { id: 'program', name: 'Program Committee' },
+        { id: 'stage', name: 'Stage Committee' },
+        { id: 'food', name: 'Food Committee' },
+        { id: 'accommodation', name: 'Accommodation Committee' },
+        { id: 'registration', name: 'Registration Committee' },
+        { id: 'maintenance', name: 'Maintenance Committee' },
+        { id: 'documentation', name: 'Documentation Committee' }
+      ];
+
+      // Reset ratings
+      committees.forEach(committee => {
+        ratings[committee.id] = 0;
+      });
+
+      // Generate committees
+      generateCommittees();
+      
+      // Setup event listeners
+      setupEventListeners();
+      
+      // Update progress
+      updateProgress();
+    }
+
+    // Generate committee cards
+    function generateCommittees() {
+      const committeeGrid = document.getElementById('committeeGrid');
+      committeeGrid.innerHTML = '';
+      
+      committees.forEach(committee => {
+        const card = document.createElement('div');
+        card.className = 'committee-card';
+        
+        card.innerHTML = `
+          <div class="committee-header">
+            <div class="committee-icon">
+              <i class="fas fa-clipboard-list"></i>
+            </div>
+            <div class="committee-name">${committee.name}</div>
+          </div>
+          
+          <div class="rating-container">
+            ${[1,2,3,4,5].map(num => `
+              <button class="rating-btn" data-committee="${committee.id}" data-rating="${num}">
+                ${num}
+              </button>
+            `).join('')}
+          </div>
+          
+          <div class="rating-labels">
+            <span>Poor</span>
+            <span>Fair</span>
+            <span>Good</span>
+            <span>Very Good</span>
+            <span>Excellent</span>
+          </div>
+        `;
+        
+        committeeGrid.appendChild(card);
+      });
+    }
+
+    // Setup event listeners
+    function setupEventListeners() {
+      // Rating buttons
+      document.getElementById('committeeGrid').addEventListener('click', function(e) {
+        if (e.target.classList.contains('rating-btn')) {
+          handleRatingClick(e.target);
+        }
+      });
+
+      // Submit button
+      document.getElementById('submitBtn').addEventListener('click', handleSubmit);
+    }
+
+    // Handle rating click
+    function handleRatingClick(button) {
+      if (isSubmitting) return;
+      
+      const committeeId = button.getAttribute('data-committee');
+      const rating = parseInt(button.getAttribute('data-rating'));
+      
+      // Remove selected class from all buttons for this committee
+      document.querySelectorAll(`[data-committee="${committeeId}"]`).forEach(btn => {
+        btn.classList.remove('selected');
+      });
+      
+      // Add selected class to clicked button
+      button.classList.add('selected');
+      
+      // Update rating
+      ratings[committeeId] = rating;
+      
+      // Update progress
+      updateProgress();
+    }
+
+    // Update progress display
+    function updateProgress() {
+      const total = committees.length;
+      const rated = Object.values(ratings).filter(r => r > 0).length;
+      const percentage = (rated / total) * 100;
+      
+      // Update progress bar
+      const progressBar = document.getElementById('progressBar');
+      const progressCount = document.getElementById('progressCount');
+      const submitBtnText = document.getElementById('submitBtnText');
+      
+      if (progressBar) progressBar.style.width = `${percentage}%`;
+      if (progressCount) progressCount.textContent = `${rated}/${total}`;
+      
+      // Update button text
+      if (rated === total) {
+        submitBtnText.textContent = 'Ready to Submit!';
+      } else {
+        submitBtnText.textContent = 'Submit Feedback';
+      }
+    }
+
+    // Handle form submission - FIXED VERSION
+    async function handleSubmit() {
+      if (isSubmitting) return;
+      
+      // Check if all committees are rated
+      const allRated = Object.values(ratings).every(r => r > 0);
+      if (!allRated) {
+        alert('Please rate all 9 committees before submitting.');
+        return;
+      }
+      
+      // Get testimony
+      const testimony = document.getElementById('testimony').value.trim();
+      
+      // Ask for confirmation if no testimony
+      if (!testimony) {
+        const proceed = confirm('You haven\'t provided any testimony or suggestions. Would you like to submit without it?');
+        if (!proceed) return;
+      }
+      
+      // Prepare data
+      const formData = {
+        ratings: ratings,
+        testimony: testimony,
+        timestamp: new Date().toISOString()
+      };
+      
+      // Show loading state
+      const submitBtn = document.getElementById('submitBtn');
+      const originalHTML = submitBtn.innerHTML;
+      submitBtn.innerHTML = '<div class="spinner"></div> Submitting...';
+      submitBtn.disabled = true;
+      isSubmitting = true;
+      
+      try {
+        // IMPORTANT: Use Google Apps Script ContentService approach
+        google.script.run
+          .withSuccessHandler(function(response) {
+            // Handle success
+            console.log('Success:', response);
+            showToast(response.message || 'Thank you! Your feedback has been submitted.');
+            
+            // Reset form after 2 seconds
+            setTimeout(() => {
+              resetForm();
+              submitBtn.innerHTML = originalHTML;
+              submitBtn.disabled = false;
+              isSubmitting = false;
+            }, 2000);
+          })
+          .withFailureHandler(function(error) {
+            // Handle error
+            console.error('Error:', error);
+            
+            // Try alternative method
+            alert('Using alternative submission method...');
+            submitViaForm(formData);
+          })
+          .submitFeedback(formData);
+          
+      } catch (error) {
+        console.error('Error:', error);
+        
+        // Fallback to form submission
+        submitViaForm(formData);
+      }
+    }
+
+    // Alternative submission using HTML form
+    function submitViaForm(formData) {
+      // Create a hidden form
+      const form = document.createElement('form');
+      form.method = 'POST';
+      form.action = 'https://script.google.com/macros/s/AKfycbx1DxWJ6fBnr_gLCi8lmsaxNVUyGy6UB0FpGBuYf1mY-QWqaqYz4IfqG_S_BOT4Eln_/exec';
+      form.style.display = 'none';
+      
+      // Add data as hidden fields
+      Object.keys(formData.ratings).forEach(key => {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = key;
+        input.value = formData.ratings[key];
+        form.appendChild(input);
+      });
+      
+      // Add testimony
+      const testimonyInput = document.createElement('input');
+      testimonyInput.type = 'hidden';
+      testimonyInput.name = 'testimony';
+      testimonyInput.value = formData.testimony;
+      form.appendChild(testimonyInput);
+      
+      // Add timestamp
+      const timestampInput = document.createElement('input');
+      timestampInput.type = 'hidden';
+      timestampInput.name = 'timestamp';
+      timestampInput.value = formData.timestamp;
+      form.appendChild(timestampInput);
+      
+      // Add to page and submit
+      document.body.appendChild(form);
+      form.submit();
+      
+      // Show success message
+      showToast('Submitting via alternative method... Please wait.');
+    }
+
+    // Show toast message
+    function showToast(message, isError = false) {
+      const toast = document.getElementById('toast');
+      const toastMessage = document.getElementById('toastMessage');
+      
+      if (!toast || !toastMessage) return;
+      
+      toastMessage.textContent = message;
+      
+      if (isError) {
+        toast.classList.add('error');
+      } else {
+        toast.classList.remove('error');
+      }
+      
+      toast.classList.add('show');
+      
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+
+    // Reset form
+    function resetForm() {
+      // Reset ratings
+      committees.forEach(committee => {
+        ratings[committee.id] = 0;
+      });
+      
+      // Clear all selected buttons
+      document.querySelectorAll('.rating-btn').forEach(btn => {
+        btn.classList.remove('selected');
+      });
+      
+      // Clear testimony
+      document.getElementById('testimony').value = '';
+      
+      // Reset progress
+      updateProgress();
+    }
+
+    // Initialize when page loads
+    document.addEventListener('DOMContentLoaded', initApp);
+  </script>
+</body>
+</html>
